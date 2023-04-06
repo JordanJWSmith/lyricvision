@@ -3,6 +3,7 @@
 # Custom
 songart_project/songart_project/.env
 songart-app/.env
+songart-env
 
 
 # Byte-compiled / optimized / DLL files
