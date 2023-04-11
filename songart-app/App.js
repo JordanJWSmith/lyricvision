@@ -13,7 +13,7 @@ export default function App() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ input1, input2 }),
-    })
+    }) 
       .then((response) => response.json())
       .then((data) => setResult(data))
       .catch((error) => console.error(error));
@@ -26,15 +26,15 @@ export default function App() {
         style={styles.input}
         onChangeText={setInput1}
         value={input1}
-        placeholder="Input 1"
+        placeholder="Song Title"
       />
       <TextInput
         style={styles.input}
         onChangeText={setInput2}
         value={input2}
-        placeholder="Input 2"
+        placeholder="Artist"
       />
-      <Button title="Submit" onPress={handleSubmit} />
+      <Button title="Generate Art" onPress={handleSubmit} />
       {result.result1 !== '' && (
         <View style={styles.resultContainer}>
           <Text style={styles.resultHeader}>Results:</Text>
