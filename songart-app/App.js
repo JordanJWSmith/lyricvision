@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
+// run: expo start --port 8000
+
 export default function App() {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
