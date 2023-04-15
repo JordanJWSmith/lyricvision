@@ -1,6 +1,7 @@
 import os
 import re
 import PIL
+import nltk
 import textwrap
 import lyricsgenius
 import requests as r
@@ -13,6 +14,8 @@ from sumy.summarizers.luhn import LuhnSummarizer
 from sumy.summarizers.lex_rank import LexRankSummarizer
 from sumy.parsers.plaintext import PlaintextParser
 from PIL import Image, ImageOps, ImageDraw, ImageFont
+
+nltk.download('punkt')
 
 load_dotenv()
 
@@ -124,7 +127,7 @@ def generate_image(prompt):
 
     try:
         img = Image.open(BytesIO(response.content))
-        img.save('examples/test_image_yebba.png')
+        # img.save('examples/test_image_yebba.png')
 
     except PIL.UnidentifiedImageError as e:
         print('API response:', response.content)
@@ -141,8 +144,10 @@ def annotate(img, caption):
     img_with_border = ImageOps.expand(img, border=border_size, fill='black')
 
     draw = ImageDraw.Draw(img_with_border)
-    font = ImageFont.truetype("fonts/Courier Prime Bold.ttf", font_size)
-    text_size = draw.textsize(caption, font=font)
+    font = ImageFont.truetype("api/fonts/Courier Prime Bold.ttf", font_size)
+    text_size = draw.textsize(caption, 
+    font=font
+    )
 
     x = (img_with_border.width - text_size[0]) / 2
     y = img_with_border.height - (border_size / 2) - text_size[1] + 7
@@ -151,15 +156,21 @@ def annotate(img, caption):
         midpoint = len(caption) // 2
 
         for i, line in enumerate(textwrap.wrap(caption, width=midpoint + 5)):
-            line_text_size = draw.textsize(line, font=font)
+            line_text_size = draw.textsize(line, 
+            font=font
+            )
             line_x = (img_with_border.width - line_text_size[0]) / 2
             line_y = y + (font_size * i) + 7
 
-            draw.text((line_x, line_y), line, fill='red', font=font)
+            draw.text((line_x, line_y), line, fill='red', 
+            font=font
+            )
 
         img_with_border = ImageOps.expand(img_with_border, border=int(border_size * 0.5), fill='black')
     else:
-        draw.text((x, y), caption, fill='red', font=font)
+        draw.text((x, y), caption, fill='red', 
+        font=font
+        )
 
     return img_with_border
 
@@ -172,10 +183,11 @@ def save_fig(img, song_title, artist, summarizer, magic_prompt, test=False):
     now = datetime.now()
     str_timestamp = now.strftime("%d-%m-%y-%H%M%S")
 
-    save_dir = 'test_image' if test else 'output'
+    save_dir = 'api/test_image' if test else 'api/output'
     magic = '_magic' if magic_prompt else ''
 
     save_dir = os.path.join(f'{save_dir}', f'{song_title}_{artist}')
+    # print('dir: ', os.listdir('.'))
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
 
