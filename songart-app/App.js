@@ -28,7 +28,10 @@ export default function App() {
           setLoading(false);
         };
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   };
 
   const ImageViewer = () => {
@@ -46,6 +49,16 @@ export default function App() {
     );
   };
 
+  const LoadingView = () => {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="blue" style={{ marginTop: 50 }} />
+        <Text style={styles.loadingText}>Generating Image...</Text>
+      </View>
+    );
+  };
+  
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>SongArt</Text>
@@ -62,20 +75,15 @@ export default function App() {
         placeholder="Artist"
       />
       <Button title="Generate Art" onPress={handleSubmit} />
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" paddingVertical="100" />
-      ) : (
-        <>
-          {imageUri !== '' && (
-            <TouchableOpacity onPress={() => setVisible(true)}>
-              <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
-              </View>
-            </TouchableOpacity>
-          )}
-          <ImageViewer />
-        </>
+      {imageUri !== '' && (
+        <TouchableOpacity onPress={() => setVisible(true)}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
+          </View>
+        </TouchableOpacity>
       )}
+      <ImageViewer />
+      {loading && <LoadingView />}
     </View>
   );
 }
@@ -108,19 +116,35 @@ const styles = StyleSheet.create({
     width: 350,
     height: 350,
   },
-  modal: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 50,
-    right: 20,
-    backgroundColor: 'white',
-    borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 10
-  }
-});
+    modal: {
+      flex: 1,
+      backgroundColor: '#000',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    closeButton: {
+      position: 'absolute',
+      top: 50,
+      right: 20,
+      backgroundColor: 'white',
+      borderRadius: 5,
+      paddingVertical: 5,
+      paddingHorizontal: 10
+    },
+    loadingContainer: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    loadingText: {
+      color: 'white',
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginTop: 20,
+    },
+  });
