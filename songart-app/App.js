@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 // run: expo start --port 8000
 
@@ -8,8 +8,10 @@ export default function App() {
   const [input2, setInput2] = useState('');
   const [imageUri, setImageUri] = useState('');
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
+    setLoading(true);
     fetch('http://192.168.0.56:8000/api/generate/', {
       method: 'POST',
       headers: {
@@ -23,6 +25,7 @@ export default function App() {
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
           setImageUri(reader.result);
+          setLoading(false);
         };
       })
       .catch((error) => console.error(error));
@@ -59,14 +62,20 @@ export default function App() {
         placeholder="Artist"
       />
       <Button title="Generate Art" onPress={handleSubmit} />
-      {imageUri !== '' && (
-        <TouchableOpacity onPress={() => setVisible(true)}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
-          </View>
-        </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" paddingVertical="100" />
+      ) : (
+        <>
+          {imageUri !== '' && (
+            <TouchableOpacity onPress={() => setVisible(true)}>
+              <View style={styles.imageContainer}>
+                <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
+              </View>
+            </TouchableOpacity>
+          )}
+          <ImageViewer />
+        </>
       )}
-      <ImageViewer />
     </View>
   );
 }
