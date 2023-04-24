@@ -1,13 +1,13 @@
-
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity } from 'react-native';
 
-// // run: expo start --port 8000
+// run: expo start --port 8000
 
 export default function App() {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
   const [imageUri, setImageUri] = useState('');
+  const [visible, setVisible] = useState(false);
 
   const handleSubmit = () => {
     fetch('http://192.168.0.56:8000/api/generate/', {
@@ -28,9 +28,24 @@ export default function App() {
       .catch((error) => console.error(error));
   };
 
+  const ImageViewer = () => {
+    return (
+      <Modal animationType="slide" transparent={false} visible={visible}>
+        <View style={styles.modal}>
+          <TouchableOpacity style={styles.closeButton} onPress={() => setVisible(false)}>
+            <Text style={styles.closeButtonText}>X</Text>
+          </TouchableOpacity>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Song to Image</Text>
+      <Text style={styles.header}>SongArt</Text>
       <TextInput
         style={styles.input}
         onChangeText={setInput1}
@@ -45,10 +60,13 @@ export default function App() {
       />
       <Button title="Generate Art" onPress={handleSubmit} />
       {imageUri !== '' && (
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: imageUri }} />
-        </View>
+        <TouchableOpacity onPress={() => setVisible(true)}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
+          </View>
+        </TouchableOpacity>
       )}
+      <ImageViewer />
     </View>
   );
 }
@@ -74,11 +92,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   imageContainer: {
-    marginTop: 50,
+    marginTop: 20,
     alignItems: 'center',
   },
   image: {
     width: 350,
     height: 350,
   },
+  modal: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10
+  }
 });
