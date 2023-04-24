@@ -37,7 +37,7 @@ def generate_art(request):
             save_fig(annotated_img, song_title, song_artist, summarizer, magic_prompt)
 
             buffer = BytesIO()
-            img.save(buffer, format="PNG")
+            annotated_img.save(buffer, format="PNG")
             image_data = buffer.getvalue()
             return HttpResponse(image_data, content_type='image/png')
             

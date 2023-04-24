@@ -5,6 +5,7 @@ songart_project/songart_project/.env
 songart-app/.env
 songart-env
 songart_venv
+songart_project/api/output/*
 
 
 # Byte-compiled / optimized / DLL files
