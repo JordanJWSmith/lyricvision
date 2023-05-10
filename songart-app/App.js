@@ -9,6 +9,11 @@ export default function App() {
   const [imageUri, setImageUri] = useState('');
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [songInfo, setSongInfo] = useState(null);
+
+const capitalize = (str, lower = false) =>
+  (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+;
 
   const handleSubmit = () => {
     setLoading(true);
@@ -25,6 +30,7 @@ export default function App() {
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
           setImageUri(reader.result);
+          setSongInfo(`${capitalize(input1)} by ${capitalize(input2)}`)
           setLoading(false);
         };
       })
@@ -49,14 +55,16 @@ export default function App() {
     );
   };
 
-  const LoadingView = () => {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="blue" style={{ marginTop: 50 }} />
-        <Text style={styles.loadingText}>Generating Image...</Text>
-      </View>
-    );
-  };
+  
+
+  // const LoadingView = () => {
+  //   return (
+  //     <View style={styles.loadingContainer}>
+  //       <ActivityIndicator size="large" color="blue" />
+  //       <Text style={styles.loadingText}>Generating Image...</Text>
+  //     </View>
+  //   );
+  // };
   
 
   return (
@@ -74,16 +82,24 @@ export default function App() {
         value={input2}
         placeholder="Artist"
       />
-      <Button title="Generate Art" onPress={handleSubmit} />
-      {imageUri !== '' && (
-        <TouchableOpacity onPress={() => setVisible(true)}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
-          </View>
-        </TouchableOpacity>
-      )}
+      <Button title="Generate Art" onPress={() => {
+        handleSubmit();
+        // setInput1('');
+        // setInput2('');
+        setSongInfo(null);
+      }} />
+      {songInfo ? <Text style={styles.songTitle}>{songInfo}</Text> : null}
+      <View style={styles.galleryBox}>
+        {loading ? (
+          <ActivityIndicator size="large" color="grey" style={styles.loadingIndicator} />
+        ) : imageUri ? (
+          <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
+        ) : (
+          <View style={styles.imagePlaceholder} />
+        )}
+      </View>
       <ImageViewer />
-      {loading && <LoadingView />}
+      {/* {loading && <LoadingView />} */}
     </View>
   );
 }
@@ -108,6 +124,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingHorizontal: 10,
   },
+  songTitle: {
+    marginTop: 40,
+    fontWeight: 'bold'
+  },
   imageContainer: {
     marginTop: 20,
     alignItems: 'center',
@@ -116,35 +136,44 @@ const styles = StyleSheet.create({
     width: 350,
     height: 350,
   },
-    modal: {
-      flex: 1,
-      backgroundColor: '#000',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    closeButton: {
-      position: 'absolute',
-      top: 50,
-      right: 20,
-      backgroundColor: 'white',
-      borderRadius: 5,
-      paddingVertical: 5,
-      paddingHorizontal: 10
-    },
-    loadingContainer: {
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0.5)',
-    },
-    loadingText: {
-      color: 'white',
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginTop: 20,
-    },
-  });
+  modal: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  loadingText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 50,
+  },
+  galleryBox: {
+    marginTop: 20,
+    width: 350,
+    height: 350,
+    borderWidth: 1,
+    borderColor: 'grey',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});

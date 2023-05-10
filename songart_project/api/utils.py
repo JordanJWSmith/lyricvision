@@ -15,7 +15,7 @@ from sumy.summarizers.lex_rank import LexRankSummarizer
 from sumy.parsers.plaintext import PlaintextParser
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 
-nltk.download('punkt')
+# nltk.download('punkt')
 
 load_dotenv()
 
