@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity, ActivityIndicator, CameraRoll } from 'react-native';
+import mainLogo from './assets/lyricvision_logo.png'
+// import 'typeface-roboto'
 
 // run: expo start --port 8000
 
@@ -9,7 +11,7 @@ export default function App() {
   const [imageUri, setImageUri] = useState('');
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [songInfo, setSongInfo] = useState(null);
+  const [songInfo, setSongInfo] = useState(' ');
 
 const capitalize = (str, lower = false) =>
   (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
@@ -57,19 +59,10 @@ const capitalize = (str, lower = false) =>
 
   
 
-  // const LoadingView = () => {
-  //   return (
-  //     <View style={styles.loadingContainer}>
-  //       <ActivityIndicator size="large" color="blue" />
-  //       <Text style={styles.loadingText}>Generating Image...</Text>
-  //     </View>
-  //   );
-  // };
-  
-
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>SongArt</Text>
+      {/* <Text style={styles.header}>lyric vision</Text> */}
+      <Image source={mainLogo} style={styles.logo}/>
       <TextInput
         style={styles.input}
         onChangeText={setInput1}
@@ -82,12 +75,31 @@ const capitalize = (str, lower = false) =>
         value={input2}
         placeholder="Artist"
       />
-      <Button title="Generate Art" onPress={() => {
-        handleSubmit();
-        // setInput1('');
-        // setInput2('');
-        setSongInfo(null);
-      }} />
+      {/* <View style={styles.genButton}>
+        <Button 
+          color='#19b4bb'
+          title="Generate Art" 
+          onPress={() => {
+              handleSubmit();
+              // setInput1('');
+              // setInput2('');
+              // setSongInfo(null);
+            }} 
+        />
+      </View> */}
+      <View style={styles.genButton}>
+        <TouchableOpacity
+          onPress={() => {
+            handleSubmit();
+          }}
+          style={{ backgroundColor: '#19b4bb', borderRadius: 10 }}
+        >
+          <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', padding: 10}}>
+            Generate Art
+          </Text>
+        </TouchableOpacity>
+      </View>
+      
       {songInfo ? <Text style={styles.songTitle}>{songInfo}</Text> : null}
       <View style={styles.galleryBox}>
         {loading ? (
@@ -99,7 +111,6 @@ const capitalize = (str, lower = false) =>
         )}
       </View>
       <ImageViewer />
-      {/* {loading && <LoadingView />} */}
     </View>
   );
 }
@@ -107,7 +118,7 @@ const capitalize = (str, lower = false) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f6f6f6',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -117,12 +128,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: 'gray',
-    borderWidth: 1,
+    backgroundColor: '#f6f6f6',
+    borderWidth: 0,
+    borderBottomWidth : 1.0,
+    // borderRadius: 8,
     width: '80%',
     marginVertical: 10,
     paddingHorizontal: 10,
+    fontFamily: 'Silkscreen'
+  },
+  genButton: {
+    borderRadius: 10,
+    // color: '#19b4bb'
   },
   songTitle: {
     marginTop: 40,
@@ -174,6 +193,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'grey',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 10,
+    backgroundColor: '#d9cbc5',
+    borderRadius: 8,
+    // background: "linear-gradient(#e66465, #9198e5)"
+  },
+  logo: {
+    width:250,
+    height: 100
   }
+
 });
