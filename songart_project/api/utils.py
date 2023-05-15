@@ -106,7 +106,8 @@ def generate_prompt(magic_prompt, text, title, artist):
         return prompt
     else:
         # TODO: add alternative styles ('concept art, detailed, dreamlike', etc)
-        return f'{text}. {title} by {artist}. Oil painting, detailed.'
+        return f'{text}. {title} by {artist}. Oil painting, beautiful, dreamlike, detailed.'
+        # return f'{text}. {title} by {artist}. album art, beautiful, dreamlike, detailed.'
 
 
 def generate_image(prompt):

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity, ActivityIndicator, CameraRoll } from 'react-native';
-import mainLogo from './assets/lyricvision_logo.png'
-// import 'typeface-roboto'
+import mainLogo from './assets/lyricvision_coral.png'
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 // run: expo start --port 8000
 
@@ -57,11 +58,22 @@ const capitalize = (str, lower = false) =>
     );
   };
 
+  const handleSave = () => {  
+    Toast.show({
+      type: 'success',
+      text1: 'Saved!',
+      position: 'bottom',
+      visibilityTime: 2000,
+      autoHide: true,
+      topOffset: 30,
+      bottomOffset: 40,
+    });
+  };
+
   
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.header}>lyric vision</Text> */}
       <Image source={mainLogo} style={styles.logo}/>
       <TextInput
         style={styles.input}
@@ -75,26 +87,15 @@ const capitalize = (str, lower = false) =>
         value={input2}
         placeholder="Artist"
       />
-      {/* <View style={styles.genButton}>
-        <Button 
-          color='#19b4bb'
-          title="Generate Art" 
-          onPress={() => {
-              handleSubmit();
-              // setInput1('');
-              // setInput2('');
-              // setSongInfo(null);
-            }} 
-        />
-      </View> */}
-      <View style={styles.genButton}>
+      <View>
         <TouchableOpacity
           onPress={() => {
             handleSubmit();
+            setSongInfo(' ');
           }}
-          style={{ backgroundColor: '#19b4bb', borderRadius: 10 }}
+          style={{ backgroundColor: '#7ba6ff', borderRadius: 10, marginTop: 10 }}
         >
-          <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', padding: 10}}>
+          <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', padding: 10 }}>
             Generate Art
           </Text>
         </TouchableOpacity>
@@ -107,10 +108,32 @@ const capitalize = (str, lower = false) =>
         ) : imageUri ? (
           <Image style={styles.image} source={{ uri: imageUri }} resizeMode="contain" />
         ) : (
-          <View style={styles.imagePlaceholder} />
+          <View style={styles.galleryBox}>
+            <Image
+              source={require('./assets/splat.png')}
+              style={styles.splat}
+              resizeMode="contain"
+            /> 
+          </View>
         )}
       </View>
       <ImageViewer />
+
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            handleSave();
+          }}
+          style={{ backgroundColor: '#ff857b', borderRadius: 10, marginTop: 0, marginBottom: 15}}
+        >
+          <Icon name="download" size={20} color="white" style={{ paddingHorizontal: 20, paddingVertical: 15 }} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Built by Jordan</Text>
+      </View>
+
     </View>
   );
 }
@@ -120,7 +143,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f6f6f6',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   header: {
     fontSize: 32,
@@ -133,15 +157,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6',
     borderWidth: 0,
     borderBottomWidth : 1.0,
-    // borderRadius: 8,
     width: '80%',
     marginVertical: 10,
     paddingHorizontal: 10,
-    fontFamily: 'Silkscreen'
   },
   genButton: {
     borderRadius: 10,
-    // color: '#19b4bb'
   },
   songTitle: {
     marginTop: 40,
@@ -187,21 +208,43 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   galleryBox: {
-    marginTop: 20,
+    marginTop: 10,
     width: 350,
     height: 350,
-    borderWidth: 1,
-    borderColor: 'grey',
+    borderWidth: 0,
+    // borderColor: 'grey',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-    backgroundColor: '#d9cbc5',
+    backgroundColor: '#e4ebec',
     borderRadius: 8,
-    // background: "linear-gradient(#e66465, #9198e5)"
   },
   logo: {
-    width:250,
-    height: 100
+    width:'100%',
+    height: 90,
+    marginBottom: 10,
+    marginTop: 45
+  },
+  navbar: {
+    backgroundColor: '#b4deef',
+    height: 20,
+    justifyContent: 'center',
+    width: '100%'
+  },
+  footer: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: 5,
+    paddingBottom: 5,
+  },
+  footerText: {
+    color: 'grey',
+    fontSize: 12,
+  },
+  splat: {
+    width: '80%',
+    height: '80%',
+    opacity: 0.3,
   }
 
 });
