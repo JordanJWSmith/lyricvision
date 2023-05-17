@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity, ActivityIndicator, CameraRoll } from 'react-native';
 import mainLogo from './assets/lyricvision_coral.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { ToastContainer, toast } from 'react-native-toast-message';
 
 
 // run: expo start --port 8000
@@ -13,6 +14,7 @@ export default function App() {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [songInfo, setSongInfo] = useState(' ');
+  const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
 
 const capitalize = (str, lower = false) =>
   (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
@@ -35,6 +37,7 @@ const capitalize = (str, lower = false) =>
           setImageUri(reader.result);
           setSongInfo(`${capitalize(input1)} by ${capitalize(input2)}`)
           setLoading(false);
+          setSaveButtonDisabled(false);
         };
       })
       .catch((error) => {
@@ -58,8 +61,10 @@ const capitalize = (str, lower = false) =>
     );
   };
 
-  const handleSave = () => {  
-    Toast.show({
+  const handleSave = () => {
+    // Handle saving the image
+  
+    toast.show({
       type: 'success',
       text1: 'Saved!',
       position: 'bottom',
@@ -94,6 +99,7 @@ const capitalize = (str, lower = false) =>
             setSongInfo(' ');
           }}
           style={{ backgroundColor: '#7ba6ff', borderRadius: 10, marginTop: 10 }}
+          disabled={loading}
         >
           <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', padding: 10 }}>
             Generate Art
@@ -124,7 +130,8 @@ const capitalize = (str, lower = false) =>
           onPress={() => {
             handleSave();
           }}
-          style={{ backgroundColor: '#ff857b', borderRadius: 10, marginTop: 0, marginBottom: 15}}
+          style={ saveButtonDisabled ? saveButtonDisabledStyle : saveButtonActiveStyle}
+          disabled={saveButtonDisabled}
         >
           <Icon name="download" size={20} color="white" style={{ paddingHorizontal: 20, paddingVertical: 15 }} />
         </TouchableOpacity>
@@ -133,10 +140,24 @@ const capitalize = (str, lower = false) =>
       <View style={styles.footer}>
         <Text style={styles.footerText}>Built by Jordan</Text>
       </View>
-
+      {/* <ToastContainer position="bottom" /> */}
     </View>
   );
 }
+
+const saveButtonDisabledStyle = {
+  backgroundColor: '#e4ebec',
+  borderRadius: 10,
+  marginTop: 0,
+  marginBottom: 15,
+};
+
+const saveButtonActiveStyle = {
+  backgroundColor: '#ff857b',
+  borderRadius: 10,
+  marginTop: 0,
+  marginBottom: 15,
+};
 
 const styles = StyleSheet.create({
   container: {
