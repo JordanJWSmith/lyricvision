@@ -98,7 +98,8 @@ const capitalize = (str, lower = false) =>
             handleSubmit();
             setSongInfo(' ');
           }}
-          style={{ backgroundColor: '#7ba6ff', borderRadius: 10, marginTop: 10 }}
+          // style={{ backgroundColor: '#7ba6ff', borderRadius: 10, marginTop: 10 }}
+          style={ loading ? genButtonDisabledStyle : genButtonActiveStyle }
           disabled={loading}
         >
           <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', padding: 10 }}>
@@ -131,7 +132,7 @@ const capitalize = (str, lower = false) =>
             handleSave();
           }}
           style={ saveButtonDisabled ? saveButtonDisabledStyle : saveButtonActiveStyle}
-          disabled={saveButtonDisabled}
+          disabled={(saveButtonDisabled || loading)}
         >
           <Icon name="download" size={20} color="white" style={{ paddingHorizontal: 20, paddingVertical: 15 }} />
         </TouchableOpacity>
@@ -158,6 +159,18 @@ const saveButtonActiveStyle = {
   marginTop: 0,
   marginBottom: 15,
 };
+
+const genButtonActiveStyle = { 
+  backgroundColor: '#7ba6ff', 
+  borderRadius: 10, 
+  marginTop: 10 
+}
+
+const genButtonDisabledStyle = { 
+  backgroundColor: '#e4ebec', 
+  borderRadius: 10, 
+  marginTop: 10 
+}
 
 const styles = StyleSheet.create({
   container: {

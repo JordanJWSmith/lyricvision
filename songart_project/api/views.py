@@ -21,7 +21,7 @@ def generate_art(request):
     print('request:', request.data)
     song_title = request.data.get('input1')
     song_artist = request.data.get('input2')
-    summarizer = 'luhn'  # for now
+    summarizer = 'lsa'  # for now
     magic_prompt = False  # for now
     song = get_lyrics(song_title, song_artist)
 
