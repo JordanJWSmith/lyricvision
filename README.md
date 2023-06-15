@@ -1,0 +1,1 @@
+![lyric vision](songart-app/assets/lyricvision_coral.png)
