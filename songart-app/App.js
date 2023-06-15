@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Image, Modal, TouchableOpacity, ActivityIndicator, CameraRoll } from 'react-native';
 import mainLogo from './assets/lyricvision_coral.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ToastContainer, toast } from 'react-native-toast-message';
+// import { ToastContainer, toast } from 'react-native-toast-message';
 
 
 // run: expo start --port 8000
@@ -98,7 +98,6 @@ const capitalize = (str, lower = false) =>
             handleSubmit();
             setSongInfo(' ');
           }}
-          // style={{ backgroundColor: '#7ba6ff', borderRadius: 10, marginTop: 10 }}
           style={ loading ? genButtonDisabledStyle : genButtonActiveStyle }
           disabled={loading}
         >
@@ -132,7 +131,7 @@ const capitalize = (str, lower = false) =>
             handleSave();
           }}
           style={ saveButtonDisabled ? saveButtonDisabledStyle : saveButtonActiveStyle}
-          disabled={(saveButtonDisabled || loading)}
+          disabled={saveButtonDisabled}
         >
           <Icon name="download" size={20} color="white" style={{ paddingHorizontal: 20, paddingVertical: 15 }} />
         </TouchableOpacity>
