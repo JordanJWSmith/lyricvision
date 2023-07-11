@@ -2,7 +2,8 @@
 
 This mobile app serves as a frontend for [song-to-image](https://github.com/JordanJWSmith/song-to-image), a python app to generate lyric-inspired artwork inspired from any given song. 
 
-![Sky Full of Stars - Coldplay](songart-app/assets/sky_full_of_stars.gif)
+<!-- ![Sky Full of Stars - Coldplay](songart-app/assets/sky_full_of_stars.gif) -->
+<img src="songart-app/assets/sky_full_of_stars.gif" alt="Sky Full of Stars - Coldplay" width="200"/>
 
 Just input a song title and artist to generate the artwork. Outputs may be different for the same song. 
 
