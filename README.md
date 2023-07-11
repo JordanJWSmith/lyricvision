@@ -7,7 +7,7 @@ This mobile app serves as a frontend for [song-to-image](https://github.com/Jord
 
 Just input a song title and artist to generate the artwork. Outputs may be different for the same song. 
 
-| Column Title             |                          |
+<!-- | Column Title             |                          | -->
 :-------------------------:|:-------------------------:
 |<img src="songart-app/assets/moonlight_1.gif" alt="Dancing in the Moonlight - Toploader (1)" width="200"/> |  <img src="songart-app/assets/moonlight_2.gif" alt="Dancing in the Moonlight - Toploader (2)" width="200"/> |
 
