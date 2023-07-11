@@ -41,6 +41,8 @@ This is a React/Django app for Android, developed using Expo Go and tested on Go
 
 <img src="songart-app/assets/get_lucky.gif" alt="Get Lucky - Daft Punk" width="500"/>
 
+For more information about archictecture and backend processed, check out [song-to-image](https://github.com/JordanJWSmith/song-to-image). 
+
 
 ## To do
 - A 'Settings' option to allow users to choose between text summarizer models, enable `magicprompt`, etc. 
