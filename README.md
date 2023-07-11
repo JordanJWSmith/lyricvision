@@ -4,8 +4,6 @@
 
 This mobile app generates lyric-inspired artwork from any given song. It serves as a frontend wrapper for [song-to-image](https://github.com/JordanJWSmith/song-to-image), which uses a mixture of Genius API, stable-diffusion and NLP for prompt extraction. 
 
-This mobile app serves as a frontend for [song-to-image](https://github.com/JordanJWSmith/song-to-image), a python app to generate lyric-inspired artwork inspired from any given song. 
-
 <!-- ![Sky Full of Stars - Coldplay](songart-app/assets/sky_full_of_stars.gif) -->
 <img src="songart-app/assets/sky_full_of_stars.gif" alt="Sky Full of Stars - Coldplay" width="500"/>
 
