@@ -7,13 +7,18 @@ This mobile app serves as a frontend for [song-to-image](https://github.com/Jord
 
 Just input a song title and artist to generate the artwork. Outputs may be different for the same song. 
 
-![Dancing in the Moonlight - Toploader (1)](songart-app/assets/moonlight_1.gif)
+                           |                            
+:-------------------------:|:-------------------------:
+<img src="songart-app/assets/moonlight_1.gif" alt="Dancing in the Moonlight - Toploader (1)" width="200"/> |  <img src="songart-app/assets/moonlight_2.gif" alt="Dancing in the Moonlight - Toploader (2)" width="200"/>
 
-![Dancing in the Moonlight - Toploader (2)](songart-app/assets/moonlight_2.gif)
+<!-- ![Dancing in the Moonlight - Toploader (1)](songart-app/assets/moonlight_1.gif)
+
+![Dancing in the Moonlight - Toploader (2)](songart-app/assets/moonlight_2.gif) -->
 
 This is a React/Django app for Android, developed using Expo Go and tested on Google Pixel 6. 
 
-![Get Lucky - Daft Punk](songart-app/assets/get_lucky.gif)
+<!-- ![Get Lucky - Daft Punk](songart-app/assets/get_lucky.gif) -->
+<img src="songart-app/assets/get_lucky.gif" alt="Get Lucky - Daft Punk" width="200"/>
 
 
 ## To do
